@@ -33,28 +33,45 @@ client = EUVD::Client.new
 
 ### Vulnerabilities
 
+Returns `Sawyer::Resource` objects (or `Array` of them). Access JSON fields as methods:
+
 ```ruby
-client.vulnerabilities.latest
+results = client.vulnerabilities.latest
+# => Array<Sawyer::Resource>
+#    results.first.id, results.first.description, results.first.baseScore, ...
+
+search = client.vulnerabilities.search(text: 'log4j', size: 10, page: 0)
+# => Sawyer::Resource with .items (Array) and .total (Integer)
+#    search.items.first.id, search.total
+
 client.vulnerabilities.exploited
 client.vulnerabilities.critical
-client.vulnerabilities.search(text: 'log4j', size: 10, page: 0)
 ```
 
 Search filters: `text`, `fromScore` (0-10), `toScore`, `fromEpss` (0-100), `toEpss`, `fromDate` (YYYY-MM-DD), `toDate`, `fromUpdatedDate`, `toUpdatedDate`, `product`, `vendor`, `assigner`, `exploited` (true/false), `page` (starts at 0), `size` (default 10, max 100).
 
 ### Records
 
+Returns `Sawyer::Resource` objects:
+
 ```ruby
-client.records.find('EUVD-2024-45012')
-client.records.find('CVE-2024-23187')
-client.records.advisory('oxas-adv-2024-0002')
+record = client.records.find('EUVD-2024-45012')
+# => Sawyer::Resource
+#    record.id, record.description, record.baseScore, record.assigner, ...
+
+# Also works with CVE or GHSA IDs
+client.records.find('CVE-2024-50831')
+client.records.find('GHSA-crm2-5cww-28rj')
+
+advisory = client.records.advisory('oxas-adv-2024-0002')
+# => Sawyer::Resource
 ```
 
 ### Downloads
 
 ```ruby
 client.downloads.cve_euvd_mapping  # returns CSV String
-client.downloads.kev_dump          # returns Array of KEV entries
+client.downloads.kev_dump          # returns raw JSON String
 ```
 
 ### Meta
