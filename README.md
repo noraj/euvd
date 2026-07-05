@@ -1,28 +1,33 @@
 # EUVD Ruby Gem
 
+[![GitHub forks](https://img.shields.io/github/forks/noraj/euvd)](https://github.com/noraj/euvd/network)
+[![GitHub stars](https://img.shields.io/github/stars/noraj/euvd)](https://github.com/noraj/euvd/stargazers)
+[![GitHub license](https://img.shields.io/github/license/noraj/euvd)](https://github.com/noraj/euvd/blob/master/LICENSE)
+
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/noraj/euvd/ruby.yml?branch=master)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/noraj/euvd)
+
+![](https://noraj.github.io/euvd/_media/euvd-logo.png)
+
 A Ruby wrapper library for the [European Union Vulnerability Database (EUVD)](https://euvd.enisa.europa.eu/apidoc) API. Uses the [Sawyer](https://github.com/lostisland/sawyer) HTTP agent framework.
 
 All endpoints are **GET-only** and **require no authentication**.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'euvd'
-```
-
-And then execute:
-
 ```bash
-$ bundle install
+gem install euvd
 ```
 
-Or install it yourself:
+Check the [installation](https://noraj.github.io/euvd/#/pages/install) page on the documentation to discover more methods.
 
-```bash
-$ gem install euvd
-```
+[![Packaging status](https://repology.org/badge/vertical-allrepos/euvd.svg)](https://repology.org/project/euvd/versions)
+[![Gem Version](https://badge.fury.io/rb/euvd.svg)](https://badge.fury.io/rb/euvd)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/noraj/euvd)
+
+## Documentation
+
+Homepage / Documentation: https://noraj.github.io/euvd/
 
 ## Usage
 
@@ -117,15 +122,10 @@ EUVD::Client.new(
 )
 ```
 
-## Development
-
-Run the tests:
-
-```bash
-bundle install
-bundle exec rspec
-```
-
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## Author
+
+Made by Alexandre ZANNI ([@noraj](https://pwn.by/noraj/)).
