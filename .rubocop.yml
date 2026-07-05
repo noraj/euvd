@@ -1,0 +1,28 @@
+inherit_mode:
+  merge:
+    - Exclude
+AllCops:
+  TargetRubyVersion: 3.3
+  NewCops: enable
+  Exclude:
+    - 'spec/**/*.rb'
+  SuggestExtensions: false
+# Gemspec cops
+Gemspec/AddRuntimeDependency:
+  Enabled: false # https://github.com/rubocop/rubocop/pull/13030#discussion_r1674791776
+# Layout cops
+Layout/HashAlignment:
+  Exclude:
+    - '*.gemspec'
+Layout/LineLength:
+  AllowedPatterns:
+    - !ruby/regexp /\A\s*# /
+# Lint cops
+# Metrics cops
+Metrics/MethodLength:
+  Max: 20
+# Naming cops
+# Style cops
+Style/ArgumentsForwarding:
+  UseAnonymousForwarding: false # else impossible to document https://github.com/lsegal/yard/issues/1648
+
