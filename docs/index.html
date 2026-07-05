@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>euvd</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="_media/euvd-favicon.ico">
+  <!-- Themes (light + dark) -->
+  <!-- Site theme -->
+  <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="vendor/themes/theme-simple-dark.css" data-cdn="https://cdn.jsdelivr.net/npm/docsify-themeable@0.9.0/dist/css/theme-simple-dark.css">
+  <link rel="stylesheet" media="(prefers-color-scheme: light)" href="vendor/themes/theme-simple.css" data-cdn="https://cdn.jsdelivr.net/npm/docsify-themeable@0.9.0/dist/css/theme-simple.css">
+  <!-- PrismJS theme -->
+  <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="vendor/prismjs/themes/prism-one-dark.min.css" data-cdn="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-one-dark.min.css">
+  <link rel="stylesheet" media="(prefers-color-scheme: light)" href="vendor/prismjs/themes/prism-one-light.min.css" data-cdn="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-one-light.min.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'euvd',
+      repo: 'https://github.com/noraj/euvd',
+      loadSidebar: true,
+      subMaxLevel: 6,
+      sidebarDisplayLevel: 1,
+      loadNavbar: true,
+      coverpage: true,
+      onlyCover: true,
+      logo: '_media/euvd-logo.png',
+      themeColor: '#f7a4a4',
+      search: 'auto',
+      themeable: {
+        readyTransition: true,
+        responsiveTables: true
+      },
+      tabs: {
+        persist    : true,
+        sync       : true,
+        theme      : 'classic',
+        tabComments: true,
+        tabHeadings: true
+      },
+      markdown: {
+        smartypants: false
+      }
+    }
+  </script>
+  <!-- Docsify -->
+  <script src="vendor/docsify.min.js" data-cdn="https://cdn.jsdelivr.net/npm/docsify@4.13.1/lib/docsify.min.js"></script>
+  <!-- Docsify plugins -->
+  <script src="vendor/plugins/search.min.js" data-cdn="https://cdn.jsdelivr.net/npm/docsify@4.13.1/lib/plugins/search.min.js"></script>
+  <script src="vendor/plugins/emoji.min.js" data-cdn="https://cdn.jsdelivr.net/npm/docsify@4.13.1/lib/plugins/emoji.min.js"></script>
+  <script src="vendor/plugins/docsify-tabs.min.js" data-cdn="https://cdn.jsdelivr.net/npm/docsify-tabs@1.6.3/dist/docsify-tabs.min.js"></script>
+  <script src="vendor/plugins/docsify-sidebar-collapse.min.js" data-cdn="https://cdn.jsdelivr.net/npm/docsify-sidebar-collapse@1.3.5/dist/docsify-sidebar-collapse.min.js"></script>
+  <script src="vendor/plugins/docsify-image-caption.min.js" data-cdn="https://cdn.jsdelivr.net/npm/docsify-image-caption@1.0.0/dist/docsify-image-caption.min.js"></script>
+  <!-- Docsify theme additions -->
+  <script src="vendor/plugins/docsify-themeable.min.js" data-cdn="https://cdn.jsdelivr.net/npm/docsify-themeable@0.9.0/dist/js/docsify-themeable.min.js"></script>
+  <!-- Docsify Syntax highlight languages -->
+  <script src="vendor/prismjs/components/prism-bash.min.js" data-cdn="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-bash.min.js"></script>
+  <script src="vendor/prismjs/components/prism-ruby.min.js" data-cdn="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

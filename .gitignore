@@ -8,3 +8,5 @@ pkg
 .rspec_status
 # Coverage
 coverage/
+# JavaScript dependencies of the documentation
+docs-tools/node_modules

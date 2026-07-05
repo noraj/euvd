@@ -30,6 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'faraday', '>= 1.0', '< 3'
   spec.add_runtime_dependency 'sawyer', '~> 0.9'
 
-  spec.files = Dir['lib/**/*.rb'] + %w[README.md LICENSE.txt]
+  spec.files = Dir['lib/**/*.rb'] + %w[README.md LICENSE]
   spec.require_paths = ['lib']
 end

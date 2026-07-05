@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-# Needed for the CLI & library
+# Needed for the library
 group :runtime, :all do
   gem 'faraday', '>= 1.0', '< 3'
   gem 'sawyer', '~> 0.9'

@@ -28,6 +28,7 @@ $ gem install euvd
 
 ```ruby
 require 'euvd'
+
 client = EUVD::Client.new
 ```
 
@@ -55,13 +56,13 @@ Search filters: `text`, `fromScore` (0-10), `toScore`, `fromEpss` (0-100), `toEp
 Returns `Sawyer::Resource` objects:
 
 ```ruby
-record = client.records.find('EUVD-2024-45012')
+record = client.records.find('EUVD-2025-20101')
 # => Sawyer::Resource
 #    record.id, record.description, record.baseScore, record.assigner, ...
 
 # Also works with CVE or GHSA IDs
-client.records.find('CVE-2024-50831')
-client.records.find('GHSA-crm2-5cww-28rj')
+client.records.find('CVE-2025-47228')
+client.records.find('GHSA-pfxq-29cx-gm9c')
 
 advisory = client.records.advisory('oxas-adv-2024-0002')
 # => Sawyer::Resource

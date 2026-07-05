@@ -1,0 +1,3 @@
+- [Home](/)
+- [Library documentation](https://noraj.github.io/euvd/yard/euvd)
+- [Source](https://github.com/noraj/euvd)
