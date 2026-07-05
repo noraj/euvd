@@ -3,23 +3,40 @@
 require 'sawyer'
 
 module EUVD
+  # Error base class for all EUVD client errors.
   class Error < StandardError; end
-  class NotFoundError < Error; end
-  class RateLimitError < Error; end
-  class ServerError < Error; end
+
+  # Raised when the API returns a non-JSON response (e.g. HTML error page).
   class BadResponseError < Error; end
 
+  # Raised when a resource is not found (HTTP 404).
+  class NotFoundError < Error; end
+
+  # Raised when the API rate limit is exceeded (HTTP 429).
+  class RateLimitError < Error; end
+
+  # Raised when the API returns a server error (HTTP 5xx).
+  class ServerError < Error; end
+
+  # Client for the EUVD API.
+  #
+  # All endpoints are GET-only and require no authentication.
+  # JSON responses are returned as rich +Sawyer::Resource+ objects
+  # (or Array of them), so you can access fields as methods
+  # instead of hash keys.
   class Client
     BASE_URL = 'https://euvdservices.enisa.europa.eu/api'
 
     attr_reader :base_url, :agent
 
+    # @param options [Hash]
+    # @option options [String] :base_url API base URL (default: EUVD::Client::BASE_URL)
     def initialize(options = {})
       @base_url = options[:base_url] || BASE_URL
       @agent = build_agent
     end
 
-    # GET request returning parsed response data.
+    # Make a GET request and return parsed response data.
     #
     # @param path [String] API path (e.g. 'lastvulnerabilities')
     # @param params [Hash] Query parameters
@@ -31,22 +48,27 @@ module EUVD
       response.data
     end
 
+    # @return [EUVD::API::Vulnerabilities]
     def vulnerabilities
       API::Vulnerabilities.new(self)
     end
 
+    # @return [EUVD::API::Records]
     def records
       API::Records.new(self)
     end
 
+    # @return [EUVD::API::Downloads]
     def downloads
       API::Downloads.new(self)
     end
 
+    # @return [EUVD::API::Meta]
     def meta
       API::Meta.new(self)
     end
 
+    # @return [EUVD::API::Observations]
     def observations
       API::Observations.new(self)
     end

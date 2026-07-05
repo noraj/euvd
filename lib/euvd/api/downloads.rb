@@ -2,6 +2,7 @@
 
 module EUVD
   module API
+    # Access to bulk data download endpoints.
     class Downloads
       def initialize(client)
         @client = client
@@ -9,12 +10,16 @@ module EUVD
 
       # GET /api/dump/cve-euvd-mapping
       # Downloads the CVE-to-EUVD ID mapping as CSV.
+      #
+      # @return [String] Raw CSV data
       def cve_euvd_mapping
         @client.get('dump/cve-euvd-mapping')
       end
 
       # GET /api/kev/dump
       # Downloads the full KEV dump as JSON.
+      #
+      # @return [String] Raw JSON data
       def kev_dump
         @client.get('kev/dump')
       end
