@@ -1,4 +1,4 @@
-# EUVD Ruby Gem
+# EUVD - Ruby library wrapper
 
 [![GitHub forks](https://img.shields.io/github/forks/noraj/euvd)](https://github.com/noraj/euvd/network)
 [![GitHub stars](https://img.shields.io/github/stars/noraj/euvd)](https://github.com/noraj/euvd/stargazers)
