@@ -4,3 +4,7 @@
 pkg
 # Ruby LSP code extension
 .ruby-lsp/
+# Rpsec status
+.rspec_status
+# Coverage
+coverage/

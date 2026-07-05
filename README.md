@@ -26,184 +26,86 @@ $ gem install euvd
 
 ## Usage
 
-### Client instantiation
-
 ```ruby
 require 'euvd'
-
 client = EUVD::Client.new
 ```
 
-### Client options
-
-Most of these options should not be changed from the default.
+### Vulnerabilities
 
 ```ruby
-client = EUVD::Client.new(
-  base_url:      'https://euvd.enisa.europa.eu/api/v1/',  # API base URL
-  media_type:    :json,            # Response format (:json or :xml)
-  auto_paginate: false,            # Automatically fetch all pages
-  per_page:      20,               # Results per page (max: 100)
-  faraday:       {},               # Faraday connection options
-  headers:       {}                # Additional default headers
-)
+client.vulnerabilities.latest
+client.vulnerabilities.exploited
+client.vulnerabilities.critical
+client.vulnerabilities.search(text: 'log4j', size: 10, page: 0)
 ```
 
-### CVE (Common Vulnerabilities and Exposures)
+Search filters: `text`, `fromScore` (0-10), `toScore`, `fromEpss` (0-100), `toEpss`, `fromDate` (YYYY-MM-DD), `toDate`, `fromUpdatedDate`, `toUpdatedDate`, `product`, `vendor`, `assigner`, `exploited` (true/false), `page` (starts at 0), `size` (default 10, max 100).
+
+### Records
 
 ```ruby
-# Get a specific CVE by ID
-cve = client.cve.find('CVE-2021-44228')
-puts cve.id         # => "CVE-2021-44228"
-puts cve.summary    # => "Apache Log4j2 JNDI features..."
-puts cve.severity   # => "CRITICAL"
-puts cve.cvss_score # => 10.0
-
-# Search CVEs with a query string
-results = client.cve.search('apache log4j')
-
-# Search with hash parameters
-results = client.cve.search(q: 'linux kernel', severity: 'HIGH')
-
-# List CVEs with pagination
-results = client.cve.list(per_page: 50, page: 1)
-
-# Get recent CVEs
-recent = client.cve.recent(limit: 10)
+client.records.find('EUVD-2024-45012')
+client.records.find('CVE-2024-23187')
+client.records.advisory('oxas-adv-2024-0002')
 ```
 
-### CPE (Common Platform Enumeration)
+### Downloads
 
 ```ruby
-# Find a specific CPE
-cpe = client.cpe.find('cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*')
-
-# Search CPEs
-results = client.cpe.search('apache')
-
-# List CPEs
-results = client.cpe.list(per_page: 20)
+client.downloads.cve_euvd_mapping  # returns CSV String
+client.downloads.kev_dump          # returns Array of KEV entries
 ```
 
-### CWE (Common Weakness Enumeration)
+### Meta
 
 ```ruby
-# Find a specific CWE
-cwe = client.cwe.find('CWE-79')
-
-# Search CWEs
-results = client.cwe.search('cross-site')
+client.meta.assigners  # returns Array of assigner names
+client.meta.banner     # returns Sawyer::Resource (enabled, message)
 ```
 
-### CAPEC (Common Attack Pattern Enumeration and Classification)
+### Observations
 
 ```ruby
-# Find a specific CAPEC
-capec = client.capec.find('CAPEC-10')
-
-# Search CAPECs
-results = client.capec.search('buffer overflow')
+client.observations.honeypot_by_cve('CVE-2021-44228')
+client.observations.honeypot_batch(%w[CVE-2021-44228 CVE-2021-45046])
+client.observations.kev_by_cve('CVE-2021-44228')
+client.observations.kev_batch('CVE-2021-44228')
 ```
 
-### Advisories
-
-```ruby
-# Find a specific advisory
-advisory = client.advisory.find('ADV-2024-001')
-
-# Search advisories
-results = client.advisory.search('apache')
-
-# List advisories
-results = client.advisory.list(per_page: 20)
-```
-
-### Statistics
-
-```ruby
-# Get summary statistics
-stats = client.statistics.summary
-
-# CVEs by severity
-by_severity = client.statistics.cve_by_severity
-
-# CVEs by year
-by_year = client.statistics.cve_by_year
-
-# Top vendors
-top_vendors = client.statistics.top_vendors(limit: 10)
-
-# Top products
-top_products = client.statistics.top_products(limit: 10)
-
-# CWEs by occurrence
-cwe_by_occurrence = client.statistics.cwe_by_occurrence(limit: 20)
-```
-
-### Search (cross-entity)
-
-```ruby
-# Search across all entities
-results = client.search.all(q: 'apache')
-
-# Search within specific entities
-cves        = client.search.cve(q: 'log4j')
-cpes        = client.search.cpe(q: 'apache')
-cwes        = client.search.cwe(q: 'XSS')
-capeks      = client.search.capec(q: 'injection')
-advisories  = client.search.advisory(q: 'security')
-```
-
-### Pagination
-
-```ruby
-# Automatic pagination (collects all pages)
-all_cves = client.paginate('cve', q: 'apache', per_page: 100)
-
-# With a block (yields each item)
-client.paginate('cve', q: 'apache') do |cve|
-  puts cve.id
-end
-```
-
-### Raw GET requests
-
-```ruby
-response = client.get('path/to/resource')
-response.data    # Sawyer::Resource or Array of Resources
-response.status  # HTTP status code (e.g. 200)
-response.headers # Response headers hash
-response.rels    # Link relations from Link header
-```
-
-### Error handling
+### Error Handling
 
 ```ruby
 begin
-  cve = client.cve.find('CVE-0000-0000')
-rescue EUVD::NotFoundError => e
-  puts "Not found: #{e.message}"
-rescue EUVD::RateLimitError => e
-  puts "Rate limited: #{e.message}"
-rescue EUVD::ServerError => e
-  puts "Server error: #{e.message}"
+  record = client.records.find('EUVD-XXXX-XXXXX')
+rescue EUVD::NotFoundError
+  puts 'Not found'
+rescue EUVD::RateLimitError
+  puts 'Rate limited'
+rescue EUVD::ServerError
+  puts 'Server error'
+rescue EUVD::BadResponseError
+  puts 'Server returned non-JSON (likely down)'
 rescue EUVD::Error => e
-  puts "EUVD error: #{e.message}"
+  puts "Error: #{e.message}"
 end
+```
+
+### Configuration
+
+```ruby
+EUVD::Client.new(
+  base_url: 'https://euvdservices.enisa.europa.eu/api'  # default
+)
 ```
 
 ## Development
 
-After checking out the repo, install dependencies:
-
-```bash
-$ bundle install
-```
-
 Run the tests:
 
 ```bash
-$ bundle exec rspec
+bundle install
+bundle exec rspec
 ```
 
 ## License

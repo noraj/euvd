@@ -2,15 +2,32 @@
 
 require_relative 'euvd/version'
 require_relative 'euvd/client'
-
-# Load API resource modules
-require_relative 'euvd/api/cve'
-require_relative 'euvd/api/cpe'
-require_relative 'euvd/api/cwe'
-require_relative 'euvd/api/capec'
-require_relative 'euvd/api/advisory'
-require_relative 'euvd/api/statistics'
-require_relative 'euvd/api/search'
+require_relative 'euvd/api/vulnerabilities'
+require_relative 'euvd/api/records'
+require_relative 'euvd/api/downloads'
+require_relative 'euvd/api/meta'
+require_relative 'euvd/api/observations'
 
 module EUVD
+  class Client
+    def vulnerabilities
+      API::Vulnerabilities.new(self)
+    end
+
+    def records
+      API::Records.new(self)
+    end
+
+    def downloads
+      API::Downloads.new(self)
+    end
+
+    def meta
+      API::Meta.new(self)
+    end
+
+    def observations
+      API::Observations.new(self)
+    end
+  end
 end
