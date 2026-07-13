@@ -19,7 +19,7 @@ end
 group :development, :test do
   gem 'rake', '~> 13.0'
   gem 'rspec', '~> 3.12'
-  gem 'simplecov', '~> 0.22'
+  gem 'simplecov', '~> 1.0'
   gem 'webmock', '~> 3.19'
 end
 
